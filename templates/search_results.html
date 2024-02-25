@@ -1,0 +1,21 @@
+<!-- search_results.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Résultats de la recherche</title>
+</head>
+<body>
+    <h1>Résultats de la recherche</h1>
+    <ul>
+        {% for song in songs %}
+<li>
+    {{ song.name }} par {{ song.artists[0].name }}
+    <form action="/add_song/{{ playlist_id }}" method="post">
+        <input type="hidden" name="song_title" value="{{ song.name }}">
+        <input type="submit" value="Ajouter à la playlist">
+    </form>
+</li>
+{% endfor %}
+    </ul>
+</body>
+</html>

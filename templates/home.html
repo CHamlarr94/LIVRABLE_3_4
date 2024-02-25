@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Création de playlist</title>
+    <!-- Ajoutez le lien CDN de Bootstrap dans l'en-tête de votre document -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center my-4">Bienvenue sur le créateur de playlist</h1>
+
+        <a class="btn btn-primary mb-3" href="/">Accueil</a>
+
+        <!-- Formulaire pour créer une nouvelle playlist -->
+        <form action="/create_playlist" method="post" class="mb-3">
+            <div class="form-group">
+                <label for="playlist_name">Nom de la playlist:</label>
+                <input type="text" id="playlist_name" name="playlist_name" class="form-control">
+            </div>
+            <input type="submit" value="Créer une playlist" class="btn btn-success">
+        </form>
+
+        <!-- Liste des playlists existantes avec des options pour les mettre à jour ou les supprimer -->
+        <h2 class="mb-3">Playlists existantes :</h2>
+        <ul class="list-group">
+            {% for playlist in playlists %}
+            <li class="list-group-item">
+                <a href="/playlist/{{ playlist.id }}">{{ playlist.name }}</a>
+                <!-- Formulaire pour mettre à jour le nom de la playlist -->
+                <form action="/update_playlist/{{ playlist.id }}" method="post" class="mt-2">
+                    <div class="form-group">
+                        <input type="text" name="new_name" placeholder="Nouveau nom" class="form-control">
+                    </div>
+                    <input type="submit" value="Mettre à jour le nom" class="btn btn-primary">
+                </form>
+                <!-- Formulaire pour supprimer la playlist -->
+                <form action="/delete_playlist/{{ playlist.id }}" method="post" class="mt-2">
+                    <input type="submit" value="Supprimer la playlist" class="btn btn-danger">
+                </form>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Ajoutez les scripts JavaScript de Bootstrap à la fin de votre document -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

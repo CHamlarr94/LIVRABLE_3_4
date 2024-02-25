@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Playlist</title>
+</head>
+<body>
+    <h1>{{ playlist.name }}</h1>
+    <a href="/">Accueil</a>
+
+    <!-- Formulaire pour ajouter une chanson à la playlist -->
+
+<form action="/search_song" method="post">
+    <label for="song_title">Rechercher une chanson :</label><br>
+    <input type="text" id="song_title" name="song_title"><br>
+    <input type="hidden" id="playlist_id" name="playlist_id" value="{{ playlist.id }}">
+    <input type="submit" value="Rechercher une chanson">
+</form>
+
+
+    <!-- Liste des chansons dans la playlist avec des options pour les mettre à jour ou les supprimer -->
+    <h2>Chansons :</h2>
+    <ul>
+        {% for song in playlist.songs %}
+        <li>
+            {{ song.title }}
+            <!-- Formulaire pour mettre à jour le titre de la chanson -->
+            <form action="/update_song/{{ song.id }}" method="post">
+                <input type="text" name="new_title" placeholder="Nouveau titre">
+                <input type="submit" value="Mettre à jour le titre">
+            </form>
+            <!-- Formulaire pour supprimer la chanson -->
+            <form action="/delete_song/{{ song.id }}" method="post">
+                <input type="submit" value="Supprimer la chanson">
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
